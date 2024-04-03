@@ -1,5 +1,6 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import CheckBox from "./CheckBox";
+import Result from "./Result";
 
 export type Person = {
   name: string;
@@ -10,12 +11,47 @@ export type Person = {
   };
 };
 
+// [
+//   {
+//     name: "",
+//     status: {
+//       content1: { detailInfo: "", 참석여부: false, money: 0 },
+//       content2: { detailInfo: "", 참석여부: false, money: 0 },
+//       content3: { detailInfo: "", 참석여부: false, money: 0 },
+//     },
+//   },
+//   {
+//     name: "",
+//     status: {
+//       content1: { detailInfo: "", 참석여부: false, money: 0 },
+//       content2: { detailInfo: "", 참석여부: false, money: 0 },
+//       content3: { detailInfo: "", 참석여부: false, money: 0 },
+//     },
+//   },
+//   {
+//     name: "",
+//     status: {
+//       content1: { detailInfo: "", 참석여부: false, money: 0 },
+//       content2: { detailInfo: "", 참석여부: false, money: 0 },
+//       content3: { detailInfo: "", 참석여부: false, money: 0 },
+//     },
+//   },
+// ]
+
 function App() {
   const [payment, setPayment] = useState([]);
   const [participants, setParticipants] = useState([]);
   const [personList, setPersonList] = useState<Person[]>([
     {
-      name: "",
+      name: "장",
+      status: {
+        content1: { detailInfo: "", 참석여부: true, money: 0 },
+        content2: { detailInfo: "", 참석여부: false, money: 0 },
+        content3: { detailInfo: "", 참석여부: false, money: 0 },
+      },
+    },
+    {
+      name: "박",
       status: {
         content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
@@ -23,22 +59,25 @@ function App() {
       },
     },
     {
-      name: "",
+      name: "김",
       status: {
-        content1: { detailInfo: "", 참석여부: false, money: 0 },
-        content2: { detailInfo: "", 참석여부: false, money: 0 },
-        content3: { detailInfo: "", 참석여부: false, money: 0 },
-      },
-    },
-    {
-      name: "",
-      status: {
-        content1: { detailInfo: "", 참석여부: false, money: 0 },
+        content1: { detailInfo: "", 참석여부: true, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
         content3: { detailInfo: "", 참석여부: false, money: 0 },
       },
     },
   ]);
+
+  const content1only = {
+    price: payment[0],
+    participants: personList.filter(
+      (personList) => personList.status.content1.참석여부 === true
+    ),
+  };
+  for (const p of content1only.participants) {
+    const money = content1only.price / content1only.participants.length;
+    p.status.content1.money += money;
+  }
 
   const getParticipantName = (e: ChangeEvent<HTMLInputElement>) => {
     setParticipants((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -47,7 +86,6 @@ function App() {
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPayment((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
-
   return (
     <>
       <table>
@@ -55,6 +93,8 @@ function App() {
           <tr>
             <th></th>
             <th>
+              <input type="text" className="bg-slate-500 w-10" />
+              <br />
               <input
                 type="text"
                 className="bg-slate-200 w-10"
@@ -63,6 +103,8 @@ function App() {
               />
             </th>
             <th>
+              <input type="text" className="bg-slate-500 w-10" />
+              <br />
               <input
                 type="text"
                 className="bg-slate-200 w-10"
@@ -71,6 +113,8 @@ function App() {
               />
             </th>
             <th>
+              <input type="text" className="bg-slate-500 w-10" />
+              <br />
               <input
                 type="text"
                 className="bg-slate-200 w-10"
@@ -126,6 +170,7 @@ function App() {
           </tr>
         </tbody>
       </table>
+      <Result />
     </>
   );
 }
