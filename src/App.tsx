@@ -45,7 +45,7 @@ function App() {
     {
       name: "장",
       status: {
-        content1: { detailInfo: "", 참석여부: true, money: 0 },
+        content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
         content3: { detailInfo: "", 참석여부: false, money: 0 },
       },
@@ -61,23 +61,23 @@ function App() {
     {
       name: "김",
       status: {
-        content1: { detailInfo: "", 참석여부: true, money: 0 },
+        content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
         content3: { detailInfo: "", 참석여부: false, money: 0 },
       },
     },
   ]);
 
-  const content1only = {
-    price: payment[0],
-    participants: personList.filter(
-      (personList) => personList.status.content1.참석여부 === true
-    ),
-  };
-  for (const p of content1only.participants) {
-    const money = content1only.price / content1only.participants.length;
-    p.status.content1.money += money;
-  }
+  // const content1only = {
+  //   price: payment[0],
+  //   participants: personList.filter(
+  //     (personList) => personList.status.content1.참석여부 === true
+  //   ),
+  // };
+  // for (const p of content1only.participants) {
+  //   const money = content1only.price / content1only.participants.length;
+  //   p.status.content1.money += money;
+  // }
 
   const getParticipantName = (e: ChangeEvent<HTMLInputElement>) => {
     setParticipants((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -131,13 +131,25 @@ function App() {
               <input type="text" onChange={getParticipantName} id="person1" />
             </td>
             <td>
-              <CheckBox id="checkbox1-1" />
+              <CheckBox
+                id="checkbox1-1"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox1-2" />
+              <CheckBox
+                id="checkbox1-2"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox1-3" />
+              <CheckBox
+                id="checkbox1-3"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
           </tr>
           <tr>
@@ -145,13 +157,25 @@ function App() {
               <input type="text" onChange={getParticipantName} id="person2" />
             </td>
             <td>
-              <CheckBox id="checkbox2-1" />
+              <CheckBox
+                id="checkbox2-1"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox2-2" />
+              <CheckBox
+                id="checkbox2-2"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox2-3" />
+              <CheckBox
+                id="checkbox2-3"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
           </tr>
           <tr>
@@ -159,18 +183,30 @@ function App() {
               <input type="text" onChange={getParticipantName} id="person3" />
             </td>
             <td>
-              <CheckBox id="checkbox3-1" />
+              <CheckBox
+                id="checkbox3-1"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox3-2" />
+              <CheckBox
+                id="checkbox3-2"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
             <td>
-              <CheckBox id="checkbox3-3" />
+              <CheckBox
+                id="checkbox3-3"
+                personList={personList}
+                setPersonList={setPersonList}
+              />
             </td>
           </tr>
         </tbody>
       </table>
-      <Result />
+      <Result personList={personList} payment={payment} />
     </>
   );
 }
