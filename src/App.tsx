@@ -43,7 +43,7 @@ function App() {
   const [participants, setParticipants] = useState([]);
   const [personList, setPersonList] = useState<Person[]>([
     {
-      name: "장",
+      name: "",
       status: {
         content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
@@ -51,7 +51,7 @@ function App() {
       },
     },
     {
-      name: "박",
+      name: "",
       status: {
         content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
@@ -59,7 +59,7 @@ function App() {
       },
     },
     {
-      name: "김",
+      name: "",
       status: {
         content1: { detailInfo: "", 참석여부: false, money: 0 },
         content2: { detailInfo: "", 참석여부: false, money: 0 },
@@ -80,7 +80,12 @@ function App() {
   // }
 
   const getParticipantName = (e: ChangeEvent<HTMLInputElement>) => {
-    setParticipants((prev) => ({ ...prev, [e.target.id]: e.target.value }));
+    const personId = Number(e.target.id.slice(-1));
+    const newPersonList = JSON.parse(JSON.stringify(personList));
+    newPersonList[personId - 1].name = e.target.value;
+    setPersonList(newPersonList);
+    console.log(newPersonList);
+    // setParticipants((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
