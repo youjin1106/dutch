@@ -18,9 +18,9 @@ const Result = ({ personList, payment }) => {
     <div>
       <button onClick={onClickCalculate}>정산</button>
       <ul>
-        <li>김ㅇㅇ</li>
-        <li>장ㅇㅇ</li>
-        <li>박ㅇㅇ</li>
+        {personList.map((person) => (
+          <li>{person.name}</li>
+        ))}
       </ul>
     </div>
   );
